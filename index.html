@@ -1,53 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111018">
-<title>A little birthday surprise</title>
+<meta name="google" content="notranslate">
+<title>Kejutan kecil ulang tahun</title>
 <style>
 :root{--bg:#111018;--rose:#d98aa7;--soft:#f2dce7;--gold:#d7b77a;--muted:#b8aab8}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 15%,#322333 0,#191520 40%,#100f16 100%);color:var(--soft);font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
 #stars{position:fixed;inset:0;pointer-events:none;overflow:hidden}.star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.6;animation:twinkle 3s infinite ease-in-out}@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.9;transform:scale(1.4)}}
 main{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}.panel{width:min(540px,100%);text-align:center;padding:36px 25px;border:1px solid rgba(217,138,167,.24);border-radius:24px;background:rgba(20,17,25,.78);box-shadow:0 20px 80px #0005;backdrop-filter:blur(8px)}
 .kicker{font:11px/1.5 Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}h1{font-weight:normal;font-size:clamp(35px,8vw,54px);line-height:1.08;margin:18px 0;color:#f7eaf1}p{line-height:1.8;color:#d7c8d6}.flower{font-size:64px;margin:16px auto;filter:drop-shadow(0 0 18px #d98aa755);animation:sway 4s ease-in-out infinite}@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-button{border:1px solid #d7b77a66;background:linear-gradient(135deg,#9c5e7d,#704a6d);color:white;border-radius:999px;padding:14px 23px;font:13px Arial,sans-serif;letter-spacing:1px;cursor:pointer;margin-top:16px;transition:.25s}button:hover{transform:translateY(-2px);box-shadow:0 8px 25px #c17b9c33}.hidden{display:none}.envelope{font-size:76px;cursor:pointer;display:inline-block;animation:bob 2.4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-7px)}}.letter{white-space:pre-line;text-align:left;font-size:17px;line-height:1.9;color:#e9dce7;border-left:1px solid #d7b77a66;padding-left:18px;margin:24px 0}.giftbox{margin:22px auto;padding:25px;border:1px solid #d7b77a55;border-radius:16px;background:#251d2a}.amount{font-size:clamp(36px,9vw,56px);color:#f2d4e2;margin:14px 0}.small{font:12px Arial,sans-serif;color:var(--muted);line-height:1.6}.footer{margin-top:26px;font-size:12px;color:#8e8191}.fade{animation:fade .8s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+button{border:1px solid #d7b77a66;background:linear-gradient(135deg,#9c5e7d,#704a6d);color:white;border-radius:999px;padding:14px 23px;font:13px Arial,sans-serif;letter-spacing:1px;cursor:pointer;margin-top:16px;transition:.25s}button:hover{transform:translateY(-2px);box-shadow:0 8px 25px #c17b9c33}.hidden{display:none}.envelope{font-size:76px;cursor:pointer;display:inline-block;animation:bob 2.4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-7px)}}.letter{white-space:pre-line;text-align:left;font-size:17px;line-height:1.9;color:#e9dce7;border-left:1px solid #d7b77a66;padding-left:18px;margin:24px 0}.footer{margin-top:26px;font-size:12px;color:#8e8191}.fade{animation:fade .8s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.heart{position:fixed;bottom:-40px;z-index:5;pointer-events:none;opacity:0;animation:floatUp 4s ease-in forwards}@keyframes floatUp{0%{transform:translate(0,0) scale(.6);opacity:0}10%{opacity:1}100%{transform:translate(var(--x,0),-110vh) scale(1.2);opacity:0}}
 </style>
 </head>
 <body><div id="stars"></div>
 <main>
+
+<!-- HALAMAN 1: SAMPUL -->
 <section class="panel fade" id="intro">
-<div class="kicker">A small surprise, from far away</div>
+<div class="kicker">Kejutan kecil dari jauh</div>
 <div class="flower">🌷</div>
-<h1>Happy Birthday</h1>
-<p>Some gifts don't need to be big.<br>They just need to carry a little warmth.</p>
-<button onclick="show('envelope')">A little surprise for you</button>
+<h1>Selamat Ulang Tahun</h1>
+<p>Jarak nggak bisa menghalangi<br>sedikit hangat ini sampai ke kamu.</p>
+<button onclick="show('envelope')">Ada kejutan kecil buatmu</button>
 </section>
+
+<!-- HALAMAN 2: AMPLOP -->
 <section class="panel hidden fade" id="envelope">
-<div class="kicker">For your special day</div><div class="envelope" onclick="show('letter')" aria-label="Open letter">💌</div>
-<h1>Open your letter</h1><p>There's a little wish waiting inside.</p><button onclick="show('letter')">Open</button>
+<div class="kicker">Untuk hari spesialmu</div><div class="envelope" onclick="openLetter()" aria-label="Buka surat">💌</div>
+<h1>Buka suratmu</h1><p>Ada ucapan kecil di dalamnya.</p><button onclick="openLetter()">Buka</button>
 </section>
+
+<!-- HALAMAN 3: SURAT -->
 <section class="panel hidden fade" id="letter">
-<div class="kicker">A birthday note</div><div class="flower">🌹</div>
-<div class="letter">Happy birthday, you.\n\nI wish I could be there today—to see your smile and give this to you in person. Since distance has other plans, I hope this little surprise can reach you in my place.\n\nMay this new chapter bring you gentle days, unexpected happiness, and reasons to smile when you least expect them. You deserve to feel appreciated—not just today, but every day.\n\nEnjoy your day. And here's a little something, just for you. ✨</div>
-<button onclick="show('gift')">There's one more thing…</button>
+<div class="kicker">Surat ulang tahun</div><div class="flower">🌹</div>
+
+<!-- ==========================================================
+     EDIT SURAT DI SINI
+     Hapus atau ganti tulisan di antara tanda  >  dan  <  di bawah.
+     Tekan ENTER untuk pindah baris. Satu baris kosong = jeda paragraf.
+     JANGAN hapus tulisan  div class="letter"  di awal
+     dan  /div  di akhir.
+     ========================================================== -->
+<div class="letter">HBD Sayangkuuu semoga panjang umur dan sukses selalu dan semoga apa yang kamu inginkan bisa tercapai.…..
+
+Dengan bertambahnya usia mu, semoga kamu menjadi pribadi yang baik dan menjadi diri sendiri
+
+di sini aku gaada banyak kata" sih cuma ngucapin selamat ke kamuu, semoga hari mu bahagia selalu dan menyenangkan
+
+sebelumnya aku minta maaf yaa gabisa nemenin kamu di sana karna kita terhalang jarakk, rasanya aku pengen banget ngerayain hari spesial gini sama kamuu
+
+tapi jarak ini terlalu jauhh
+
+kamu tau ga? klo kamu itu sangat spesial buatt akuu dan aku bersyukur banget bisa dapet cewe kayak kamu
+
+kamu itu lebih dari kata sempurna, kamu segalanya, dan saat sama kamu aku merasa sangat nyaman
+
+intinya tuh akuu sayang banget sama kamu
+
+I love you cantikkuuu duniaakuuu🫶💗💗</div>
+<!-- ======================= AKHIR EDIT SURAT ======================= -->
+
+<button onclick="show('words')">Masih ada lagi…</button>
 </section>
-<section class="panel hidden fade" id="gift">
-<div class="kicker">Your little birthday gift</div><div class="flower">🎁</div>
-<h1>Just a little treat</h1><p>Because birthdays deserve a little extra sweetness.</p>
-<div class="giftbox"><div class="small">A gift from me to you</div><div class="amount" id="giftAmount">RM50</div><p class="small">I'll send your gift personally. Tell me which method is easiest for you to receive it. 💗</p></div>
-<button onclick="show('final')">One last wish</button>
+
+<!-- HALAMAN 4: KATA-KATA ROMANTIS (menggantikan halaman hadiah) -->
+<section class="panel hidden fade" id="words">
+<div class="kicker">Buat kamu</div><div class="flower">💗</div>
+<h1>Sedikit yang ingin kuucapkan</h1>
+
+<!-- ==========================================================
+     EDIT KATA-KATA ROMANTIS DI SINI
+     Tiap baris = satu kalimat. Tambah kalimatmu sendiri di bawah
+     (atau di mana saja), tekan ENTER untuk baris baru.
+     Satu baris kosong = jeda.
+     JANGAN hapus  <div class="letter">  di awal dan  </div>  di akhir.
+     ========================================================== -->
+<div class="letter">Kamu itu rumah buat hatiku, sejauh apa pun aku pergi.
+
+Jarak cuma angka. Yang aku rasain tetap kamu, setiap hari.
+
+Aku nggak butuh banyak hal, cukup lihat kamu bahagia.
+
+Dari sekian banyak orang, kamu yang bikin aku selalu pengin pulang.
+
+Nanti kalau kita ketemu, aku pengen peluk kamu lama-lama.</div>
+<!-- ================= AKHIR EDIT KATA-KATA ROMANTIS ================= -->
+
+<button onclick="show('final')">Satu harapan terakhir</button>
 </section>
+
+<!-- HALAMAN 5: PENUTUP -->
 <section class="panel hidden fade" id="final">
-<div class="flower">✨</div><div class="kicker">From a distance, with warmth</div><h1>Make a wish.</h1><p>I hope the year ahead is kinder, brighter, and full of moments that make you genuinely happy.</p><p style="color:#e9b9ce">Happy birthday. 🌙</p><div class="footer">Made with care, from someone far away. ❤️</div>
-<button onclick="show('intro')">Replay the surprise</button>
+<div class="flower">✨</div><div class="kicker">Dari jauh, dengan sayang</div><h1>Buat harapan ya.</h1><p>Semoga tahun depan lebih baik, lebih cerah, dan penuh momen yang bikin kamu bahagia.</p><p style="color:#e9b9ce">Selamat ulang tahun, sayang. 🌙</p><div class="footer">Dibuat dengan sayang, dari seseorang yang jauh. ❤️</div>
+<button onclick="show('intro')">Ulangi kejutannya</button>
 </section>
+
 </main>
 <script>
-// Customize this gift amount before sharing the page.
-// Edit this amount to your chosen gift before publishing.
-const GIFT_AMOUNT = 'RM50';
-document.getElementById('giftAmount').textContent = GIFT_AMOUNT;
 const starLayer=document.getElementById('stars');for(let i=0;i<85;i++){const s=document.createElement('span');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*4+'s';s.style.opacity=(Math.random()*.7+.15);starLayer.appendChild(s)}
 function show(id){document.querySelectorAll('main .panel').forEach(p=>p.classList.add('hidden'));const el=document.getElementById(id);el.classList.remove('hidden');el.classList.remove('fade');void el.offsetWidth;el.classList.add('fade');window.scrollTo({top:0,behavior:'smooth'})}
+
+function loveBurst(n){const em=['❤️','💗','💕','💖','🌹'];for(let i=0;i<n;i++){setTimeout(()=>{const h=document.createElement('span');h.className='heart';h.textContent=em[Math.floor(Math.random()*em.length)];h.style.left=Math.random()*92+'%';h.style.fontSize=(18+Math.random()*26)+'px';h.style.animationDuration=(3+Math.random()*2.5)+'s';h.style.setProperty('--x',(Math.random()*120-60)+'px');document.body.appendChild(h);setTimeout(()=>h.remove(),6500)},i*90)}}
+let opening=false;
+function openLetter(){if(opening)return;opening=true;loveBurst(30);setTimeout(()=>{show('letter');opening=false;loveBurst(14)},1400)}
 </script></body></html>
